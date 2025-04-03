@@ -1,49 +1,25 @@
 ## KAFKA
-Apache Kafka is an open-source distributed event streaming platform used to handle real-time data feeds. It’s designed to handle massive amounts of data at high throughput in a fault-tolerant way. 
 
-A Broker is a Kafka server. Kafka cluster can consist of multiple brokers/servers working together.
+Kafka is a Queue service or we can say it is Event Streaming service.
+Kafka is mainly used for Massive data handling.
 
-Kafka works with `Topics` and `Partitions`. Topic is just a stream or channel where messages are sent to and read from. Topic is continuous flow of specific data. Every message that is written into the Topic is append to the stream. 
+Kafka Server called Broker. Kafka Cluster can contains multiple Server/Brokers which can work together.
 
-Each topic in Kafka is split into multiple partitions. A partition is a log file that holds a subset of messages within the topic. 
+Kafka has conecpts like Topic, wy which we can send and receive messages to specific Queues. Here instead of Queues we called Topic. Each topic can have multiple partitions. Each partions contains Subset of messages of specific topic. Every Partions is Ordered and also messages within a partitoin are also ordered.
 
-Every partition is ordered, so messages within a partition are guaranteed to be read in the order they were written. 
+Partitions allow Kafka to scale Horizontally. Each partition can be used parralley by multiple machines.
 
-Partitions allow Kafka to scale horizontally. Each partition can be read or written to by different machines in parallel, improving throughput and fault tolerance. 
+Kafka hold messages even after the consumed, and multiple consumer can read same message at different time.
 
-`Producers` write to Topics, and `Consumers` read from Topics, but Kafka retains messages for a configurable time (even after they are consumed). Kafka is often used in pub-sub patterns where multiple consumers can read the same message at different times.
+Multiple consumers togetherly can create Consumer Group. Kafka ensure that only consumer of the group consume each message. 
 
-A `Consumer Group` is a collection of consumers that work together to read data from a Kafka topic. Kafka ensures that each message is consumed by only one consumer within the group, providing parallelism without duplication. If a consumer fails, another consumer in the group takes over its task.
+Every message in Kafka has an offset. Offset is like Page number of a book. it identifies the position of the messgae in the partition. Consumer remember last offset they processed, if consumer crashes it can continue from the last  offset so no message is missed or read twice.
 
-Imagine you're reading a book. The `offset` is like the page number you're on. Each time you read a new message from Kafka, the offset moves forward by 1 (like turning a page). The offset helps you remember where you left off so you can continue reading from the right spot next time. Every message in Kafka has an offset. It's a number that identifies the position of that message in the partition. Consumers keep track of which message they’ve read by remembering the last offset they processed. If a consumer crashes or restarts, it can continue from the last offset it was at, so no messages are missed or read twice.
-
-Kafka uses `Zookeeper` for distributed coordination. Zookeeper is responsible for managing the Kafka cluster's metadata, leader election, and managing which broker holds which partition.
-
-Each partition has one `leader` and zero or more `followers`. The Leader broker is the only broker that can handle all write and read requests for that partition. So, all producers (writing data) and consumers (reading data) interact with the Leader of a partition. The Follower brokers replicate the data from the Leader. They are passive and do not serve read or write requests directly. If the Leader fails, one of the followers is elected to become the new Leader, ensuring availability and fault tolerance.
-
-
+Kafka follow Leader/Master Slave/Follower where Leader Server is handle read write for a partiton, followers server replicates data from leader, after reader creash then one follower is elected for leader, followers are inactive only job is copy data from leader.
 
 Kafka is frequently used in microservices architectures for event-driven communication between services. Each microservice communicates with others asynchronously via Kafka topics.
 
-Kafka can be used to aggregate logs from multiple services into a central logging system, making it easy to monitor and analyze logs in real time.
-
 In any use case, we only need to use two Kafka functions: one is Write (for producing messages) WriteMessages and the other is Reader (for consuming messages) ReadMessage.
-
-The producer will collect messages into batches before sending them to Kafka. This BatchSize setting defines the maximum size of a single batch.
-
-This setting allows the producer to wait for additional messages to fill up the batch before sending it. If a batch hasn't been filled up to the configured BatchSize, the producer will wait for LingerMillis milliseconds before sending it, even if the batch size isn't fully reached.
-
-For RequiredAcks Field we have 3 Options:
-kafka.NoResponse: No acknowledgment (lowest latency, highest risk).
-
-kafka.WaitForLocal: Acknowledge once the leader replica acknowledges.
-
-kafka.RequireAll: Wait for acknowledgment from all replicas (highest durability).
-
-IDempotent setting enables or disables idempotent producers. When idempotency is enabled, Kafka ensures that even if the producer sends the same message multiple times (due to retries), the message is only written once to the Kafka topic.
-
-Transport is the TLS configuration. It defines how the connection will be secured with SSL/TLS.
-NEVER use InsecureSkipVerify: true in a production environment because it makes your connection vulnerable to man-in-the-middle (MITM) attacks. Always set it to false in production.
 
 ```go
 // Producer with advanced configurations (batch, idempotency, and SSL encryption)
@@ -76,6 +52,23 @@ func Producer(){
 	}
 }
 ```
+
+The producer will collect messages into batches before sending them to Kafka. This BatchSize setting defines the maximum size of a single batch.
+
+This LingerMillis setting allows the producer to wait for additional messages to fill up the batch before sending it. If a batch hasn't been filled up to the configured BatchSize, the producer will wait for LingerMillis milliseconds before sending it, even if the batch size isn't fully reached.
+
+For RequiredAcks Field we have 3 Options:
+kafka.NoResponse: No acknowledgment (lowest latency, highest risk).
+
+kafka.WaitForLocal: Acknowledge once the leader replica acknowledges.
+
+kafka.RequireAll: Wait for acknowledgment from all replicas (highest durability).
+
+IDempotent setting enables or disables idempotent producers. When idempotency is enabled, Kafka ensures that even if the producer sends the same message multiple times (due to retries), the message is only written once to the Kafka topic.
+
+Transport is the TLS configuration. It defines how the connection will be secured with SSL/TLS.
+NEVER use InsecureSkipVerify: true in a production environment because it makes your connection vulnerable to man-in-the-middle (MITM) attacks. Always set it to false in production.
+
 
 ```go
 // Consumer with advanced configuration offset
