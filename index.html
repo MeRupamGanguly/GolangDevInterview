@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway Flow by Rupam Ganguly</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c; /* Dark background */
+            margin: 0;
+            padding: 0;
+            color: #f4f4f4; /* Light text color */
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #1c1c1c; /* Darker background for header */
+            color: #f4f4f4;
+        }
+        .flowchart {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .step {
+            background-color: #333; /* Dark background for cards */
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #444; /* Slightly lighter border */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Darker shadow */
+            max-width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Darker shadow on hover */
+        }
+        .step h3 {
+            font-size: 20px;
+            color: #64b5f6; /* Light blue for headings */
+        }
+        .arrow {
+            font-size: 50px; /* Larger arrows */
+            margin-top: 10px;
+            color: #64b5f6; /* Light blue arrows */
+        }
+        .content {
+            font-size: 14px;
+            color: #dcdcdc; /* Light gray text */
+        }
+        .container {
+            text-align: center;
+        }
+        .container .title {
+            font-size: 25px;
+            color: #64b5f6;
+            margin-bottom: 20px;
+        }
+        .footer-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5); /* Light gray text */
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Payment Gateway Flow by Rupam Ganguly</h1>
+    
+    <div class="container">
+        <div class="title">End-to-End Flow of a Payment Transaction</div>
+        <div class="flowchart">
+            <!-- Customer Chooses Payment Method -->
+            <div class="step">
+                <h3>1. Customer Chooses Payment Method</h3>
+                <p class="content">Customer selects credit card, debit card, UPI, or wallet as a payment method on the merchant’s website or app (e.g., Amazon, Netflix).</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Enter Payment Details -->
+            <div class="step">
+                <h3>2. Enter Payment Details</h3>
+                <p class="content">Customer enters payment information like card number, expiry date, CVV, or wallet details on the payment form.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Encryption with SSL/TLS -->
+            <div class="step">
+                <h3>3. Encryption with SSL/TLS</h3>
+                <p class="content">The payment details are encrypted using SSL/TLS to securely transmit the data over the internet.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Send to Payment Gateway -->
+            <div class="step">
+                <h3>4. Send to Payment Gateway</h3>
+                <p class="content">The encrypted payment details are sent from the merchant's website to the Payment Gateway for processing.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Tokenization -->
+            <div class="step">
+                <h3>5. Tokenization</h3>
+                <p class="content">The Payment Gateway tokenizes or encrypts sensitive card data to avoid direct exposure of the customer’s payment information.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Forward to Payment Processor -->
+            <div class="step">
+                <h3>6. Forward to Payment Processor</h3>
+                <p class="content">The tokenized data is forwarded to the Payment Processor for authorization and validation of the transaction.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Payment Processor Validates -->
+            <div class="step">
+                <h3>7. Payment Processor Validates</h3>
+                <p class="content">The Payment Processor checks if the merchant's account can accept payments and sends the transaction to the Card Network for further processing.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Forward to Card Network -->
+            <div class="step">
+                <h3>8. Forward to Card Network</h3>
+                <p class="content">The Payment Processor forwards the payment request along with the customer’s details to the Card Network (Visa, Mastercard, etc.) for authorization.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Card Network Routes to Issuer Bank -->
+            <div class="step">
+                <h3>9. Card Network Routes to Issuer Bank</h3>
+                <p class="content">The Card Network routes the payment request to the Issuer Bank (the customer's bank) for validation.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Issuer Bank Validates -->
+            <div class="step">
+                <h3>10. Issuer Bank Validates</h3>
+                <p class="content">The Issuer Bank checks if the card is valid, the customer has sufficient funds, and runs fraud detection checks (e.g., 3D Secure, location, card status).</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Authorization Response -->
+            <div class="step">
+                <h3>11. Authorization Response</h3>
+                <p class="content">The Issuer Bank sends an authorization response (approved or declined) back through the Card Network to the Payment Processor.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Forward Response to Payment Gateway -->
+            <div class="step">
+                <h3>12. Forward Response to Payment Gateway</h3>
+                <p class="content">The Payment Processor forwards the authorization result (approved or declined) to the Payment Gateway.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Notify Merchant and Customer -->
+            <div class="step">
+                <h3>13. Notify Merchant and Customer</h3>
+                <p class="content">The Payment Gateway notifies the merchant’s website and the customer of the transaction result. If approved, the customer sees a confirmation, and if declined, an error message is shown (e.g., insufficient funds, expired card).</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Capture Payment -->
+            <div class="step">
+                <h3>14. Capture Payment</h3>
+                <p class="content">The merchant can initiate a capture request to collect the funds from the customer’s account. This can happen immediately or later based on the merchant's settings (e.g., delayed capture).</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Funds Transfer -->
+            <div class="step">
+                <h3>15. Funds Transfer</h3>
+                <p class="content">The Payment Processor sends a request to transfer the funds from the Issuer Bank to the Acquirer Bank (merchant's bank), minus transaction fees.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <!-- Transaction Complete -->
+            <div class="step">
+                <h3>16. Transaction Complete</h3>
+                <p class="content">The payment is successfully completed, and the merchant receives the funds, completing the transaction process.</p>
+                <div class="footer-text">Rupam Ganguly</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
